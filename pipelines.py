@@ -1,6 +1,7 @@
 import itertools
 import logging
 from typing import Optional, Dict, Union
+import re
 
 from nltk import sent_tokenize
 
@@ -133,6 +134,7 @@ class QGPipeline:
         inputs = []
         for i, answer in enumerate(answers):
             if len(answer) == 0: continue
+            answer = [re.sub(r'<.*?>', '', s).strip() for s in answer]
             for answer_text in answer:
                 sent = sents[i]
                 sents_copy = sents[:]
